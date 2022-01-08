@@ -57,6 +57,3 @@ torchgeometry==0.1.2
 torchvision==0.11.1+cu111
 tqdm==4.62.3
 trimesh==3.9.36
-external/multiperson/neural_renderer
-pyyaml==5.1
-external/detectron2
