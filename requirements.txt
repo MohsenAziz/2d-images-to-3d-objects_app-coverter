@@ -1,5 +1,5 @@
 chumpy
-fvcore==0.1.1.post20200716
+fvcore==0.1.5.post20211023
 ipdb
 matplotlib
 numpy
