@@ -1,0 +1,15 @@
+chumpy
+fvcore==0.1.1.post20200716
+ipdb
+matplotlib
+numpy
+opencv-python
+PyYAML==5.4.1
+scikit-image
+scipy
+smplx
+tqdm
+
+# For bodymocap
+loguru
+torchgeometry
