@@ -1,5 +1,5 @@
 chumpy
-fvcore==0.1.5.post20211023
+fvcore==0.1.1.post20200716
 ipdb
 matplotlib
 numpy
@@ -9,7 +9,7 @@ scikit-image
 scipy
 smplx
 tqdm
-Flask==2.0.2
+
 # For bodymocap
 loguru
 torchgeometry
