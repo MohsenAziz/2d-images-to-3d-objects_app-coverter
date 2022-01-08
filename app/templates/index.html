@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>From 2D_images to 3D_meshes App converter</title>
+  <!-- CSS  -->
+  <link href="./static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style>
+		/*the container must be positioned relative:*/
+		.custom-select {
+		  position: relative;
+		  font-family: Arial;
+		}
+
+		.custom-select select {
+		  display: none; /*hide original SELECT element:*/
+		}
+
+		.select-selected {
+		  background-color: DodgerBlue;
+		}
+
+		/*style the arrow inside the select element:*/
+		.select-selected:after {
+		  position: absolute;
+		  content: "";
+		  top: 14px;
+		  right: 10px;
+		  width: 0;
+		  height: 0;
+		  border: 6px solid transparent;
+		  border-color: #fff transparent transparent transparent;
+		}
+
+		/*point the arrow upwards when the select box is open (active):*/
+		.select-selected.select-arrow-active:after {
+		  border-color: transparent transparent #fff transparent;
+		  top: 7px;
+		}
+
+		/*style the items (options), including the selected item:*/
+		.select-items div,.select-selected {
+		  color: #ffffff;
+		  padding: 8px 16px;
+		  border: 1px solid transparent;
+		  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+		  cursor: pointer;
+		  user-select: none;
+		}
+
+		/*style items (options):*/
+		.select-items {
+		  position: absolute;
+		  background-color: DodgerBlue;
+		  top: 100%;
+		  left: 0;
+		  right: 0;
+		  z-index: 99;
+		}
+
+		/*hide the items when the select box is closed:*/
+		.select-hide {
+		  display: none;
+		}
+
+		.select-items div:hover, .same-as-selected {
+		  background-color: rgba(0, 0, 0, 0.1);
+		}
+</style>
+  
+</head>
+
+<body>
+  <nav style="background-color: #329ca8" class="lighten-1"  role="navigation" style="height: 100px">
+    <div class="nav-wrapper container">
+      <a id="logo-container" class="brand-logo center">From 2D_images to 3D_meshes App</a>
+      <div style="margin-left: 800px">
+      	   Made by <a class="orange-text text-lighten-3">ITI-G8</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <div class="row">
+        <form action='/' method="post" class="col s12" enctype="multipart/form-data">
+          <div class="row">
+
+            <div class="input-field col s5" style="margin-left: 20px; margin-top: 150px">
+              <div class = "row">
+
+                  <div class="row">
+                    <label for="first_name"><b>Upload Image</b></label><br>
+                    <div class = "file-field input-field">
+                      <div class = "btn" style="background-color: #32a84a">
+                        <span>Browse</span>
+                        <input type = "file" name="image_upload" id="image_upload" />
+                      </div>
+                      <div class = "file-path-wrapper">
+                        <input class = "file-path validate" type = "text" placeholder = "Upload Image" name="image_name" id="image_name" />
+                      </div>
+                    </div>
+                  </div>
+				  
+					  <h6>please enter only images that contain interaction between humans and the selected object.</h6>
+					  <div class="custom-select" style="width:200px;">
+						<label for="class_name">Choose an object:</label>
+						<select name="class_name" id="class_name">
+							
+							<option value="bicycle">Bicycle</option>
+							<option value="motorcycle">Motorcycle</option>
+							<option value="tennis">Tennis</option>
+							<option value="laptop">Laptop</option>
+							<option value="bench">Bench</option>
+							<option value="skateboard">Skateboard</option>
+							<option value="surfboard">Surfboard</option>
+							<option value="bat">Baseball_bat</option>
+							
+						</select>
+						<br><br>
+						
+					  </div>
+								  
+		
+                  <div class="row center" style="margin-top: 50px">
+                    <button id="submit" type="submit" class="btn-large" style="background-color: #32a84a">Process</button>
+                  </div>
+
+              </div>
+            </div>
+
+            <div class="input-field col s3">
+              <div style="text-align: center; padding-top: 50px; margin-left: 100px">
+				
+                
+				{% for url in links %}
+				<img src="{{ url_for('static',filename=url) }}" width="640" height="640"/>
+				{% endfor %}
+              </div>
+              {% if pred != None %}
+              <div style="width: 500px; margin-left: 100px; text-align: center;" >
+                <h5>{{ pred }}</h5>
+              </div>
+			  
+              {% endif %}
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  </div>
+
+  <!--  Scripts-->
+  <script src="./static/js/materialize.js"></script>
+  <script type="text/javascript">
+    document.getElementById('image_upload').onchange = function () {
+        document.getElementById('image_name').value = this.value.slice(12,100);
+    };
+  </script>
+  
+  <script>
+		var x, i, j, l, ll, selElmnt, a, b, c;
+		/*look for any elements with the class "custom-select":*/
+		x = document.getElementsByClassName("custom-select");
+		l = x.length;
+		for (i = 0; i < l; i++) {
+		  selElmnt = x[i].getElementsByTagName("select")[0];
+		  ll = selElmnt.length;
+		  /*for each element, create a new DIV that will act as the selected item:*/
+		  a = document.createElement("DIV");
+		  a.setAttribute("class", "select-selected");
+		  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+		  x[i].appendChild(a);
+		  /*for each element, create a new DIV that will contain the option list:*/
+		  b = document.createElement("DIV");
+		  b.setAttribute("class", "select-items select-hide");
+		  for (j = 1; j < ll; j++) {
+			/*for each option in the original select element,
+			create a new DIV that will act as an option item:*/
+			c = document.createElement("DIV");
+			c.innerHTML = selElmnt.options[j].innerHTML;
+			c.addEventListener("click", function(e) {
+				/*when an item is clicked, update the original select box,
+				and the selected item:*/
+				var y, i, k, s, h, sl, yl;
+				s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+				sl = s.length;
+				h = this.parentNode.previousSibling;
+				for (i = 0; i < sl; i++) {
+				  if (s.options[i].innerHTML == this.innerHTML) {
+					s.selectedIndex = i;
+					h.innerHTML = this.innerHTML;
+					y = this.parentNode.getElementsByClassName("same-as-selected");
+					yl = y.length;
+					for (k = 0; k < yl; k++) {
+					  y[k].removeAttribute("class");
+					}
+					this.setAttribute("class", "same-as-selected");
+					break;
+				  }
+				}
+				h.click();
+			});
+			b.appendChild(c);
+		  }
+		  x[i].appendChild(b);
+		  a.addEventListener("click", function(e) {
+			  /*when the select box is clicked, close any other select boxes,
+			  and open/close the current select box:*/
+			  e.stopPropagation();
+			  closeAllSelect(this);
+			  this.nextSibling.classList.toggle("select-hide");
+			  this.classList.toggle("select-arrow-active");
+			});
+		}
+		function closeAllSelect(elmnt) {
+		  /*a function that will close all select boxes in the document,
+		  except the current select box:*/
+		  var x, y, i, xl, yl, arrNo = [];
+		  x = document.getElementsByClassName("select-items");
+		  y = document.getElementsByClassName("select-selected");
+		  xl = x.length;
+		  yl = y.length;
+		  for (i = 0; i < yl; i++) {
+			if (elmnt == y[i]) {
+			  arrNo.push(i)
+			} else {
+			  y[i].classList.remove("select-arrow-active");
+			}
+		  }
+		  for (i = 0; i < xl; i++) {
+			if (arrNo.indexOf(i)) {
+			  x[i].classList.add("select-hide");
+			}
+		  }
+		}
+		/*if the user clicks anywhere outside the select box,
+		then close all select boxes:*/
+		document.addEventListener("click", closeAllSelect);
+</script>
+
+
+  </body>
+</html>
