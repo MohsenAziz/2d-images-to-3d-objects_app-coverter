@@ -3,6 +3,7 @@ import math
 
 import torch
 from torch.nn import functional as F
+torch.manual_seed(0)
 
 
 def rot6d_to_matrix(rot_6d):
