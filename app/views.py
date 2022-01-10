@@ -147,12 +147,13 @@ def index():
 
 
 		# Joint Human and Object Optimization
+		#increse np. of iterations to enhance model
 
 		model = optimize_human_object(
 			person_parameters=human_parameters,
 			object_parameters=object_parameters,
 			class_name=s,
-			num_iterations=100,
+			num_iterations=25,
 			lr=2e-3,
 		)
 
