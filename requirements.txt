@@ -9,6 +9,7 @@ scikit-image
 scipy
 smplx
 tqdm
+gunicorn
 
 Flask==2.0.2
 # For bodymocap
