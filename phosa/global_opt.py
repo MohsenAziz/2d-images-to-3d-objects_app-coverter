@@ -580,11 +580,13 @@ class PHOSA(nn.Module):
             verts_combined = combine_verts(
                 [self.get_verts_object(), self.get_verts_person()]
             )
-            for v in tqdm.tqdm(verts_combined[0]):
+            for v in verts_combined[0]:
                 fp.write(f"v {v[0]:f} {v[1]:f} {v[2]:f}\n")
             o = 1
-            for f in tqdm.tqdm(self.faces[0]):
+            for f in self.faces[0]:
                 fp.write(f"f {f[0] + o:d} {f[1] + o:d} {f[2] + o:d}\n")
+            print("Done object save with name "+fname)
+         
 
 
 def optimize_human_object(
