@@ -13,6 +13,14 @@ In ECCV 2020
 
 [<img src="doc/phosa_teaser.gif" width="500">](https://jasonyzhang.com/phosa/)
 
+## Summary
+In this work we fixed problems in this project change an old Detectron2 model with a new one, the torch version, and made the other project compatible with the new version, deploy it on aws ec2, and added new objects too (Motor-bike, Bat, Tennis Racket, Skiboard, Laptop, ... ), We also have a Colab Notebook provided below.
+
+## Challenges
+* Starting from working with previous works sequence to achieve your final work PointRend from Detectron, BodyMocap, Neural Mesh Renderer and Phosa
+* Resolving dependencies among projects for building your pipeline some of them out of date
+* Creating new 3D objects and annotated them using MeshLab
+* Deploying the final work on cloud which needed high power and computational resources and made our flask web application
 ## Requirements
 * Python (tested on 3.7)
 * Pytorch (tested on 1.4)
@@ -91,7 +99,7 @@ recommended sources [here](doc/mesh.md).
 python demo.py --filename input/000000038829.jpg
 ```
 
-We also have a [Colab Notebook](https://colab.research.google.com/drive/1QIoL2g0jdt5E-vYKCIojkIz21j3jyEvo?usp=sharing)
+We also have a [Colab Notebook](https://colab.research.google.com/drive/1V_Ri6BU8nQ-THbFvKMx1M6c25gk41lPX?usp=sharing)
 to interactively visualize the outputs.
 
 
